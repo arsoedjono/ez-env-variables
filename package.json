@@ -10,14 +10,18 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:ez-env-variables.helloWorld"
+    "onLanguage:ez-env-variables"
   ],
   "main": "./out/extension.js",
   "contributes": {
-    "commands": [
+    "languages": [
       {
-        "command": "ez-env-variables.helloWorld",
-        "title": "Hello World"
+        "id": "env",
+        "extensions": [
+          ".env",
+          ".env.sample"
+        ],
+        "configuration": "./language-configuration.json"
       }
     ]
   },

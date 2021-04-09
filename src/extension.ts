@@ -1,27 +1,43 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 
-// this method is called when your extension is activated
-// your extension is activated the very first time the command is executed
-export function activate(context: vscode.ExtensionContext) {
+export class Logger {
+	constructor(readonly output: vscode.OutputChannel) {
+		this.output = output
+	}
 
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "ez-env-variables" is now active!');
+	log(msg: string) {
+		let timestamp = new Date().toISOString().replace(/[a-zA-Z]/g, ' ').trim()
+		this.output.appendLine(`[${timestamp}] ${msg}`);
+	}
 
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with registerCommand
-	// The commandId parameter must match the command field in package.json
-	let disposable = vscode.commands.registerCommand('ez-env-variables.helloWorld', () => {
-		// The code you place here will be executed every time your command is executed
-
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from EZ Env Variables!');
-	});
-
-	context.subscriptions.push(disposable);
+	dispose() {
+		this.output.dispose();
+	}
 }
 
-// this method is called when your extension is deactivated
+export function activate(context: vscode.ExtensionContext) {
+	let logger = new Logger(vscode.window.createOutputChannel('EZ Env Variables'));
+	logger.log('starting extension');
+
+	let formatEnv = vscode.languages.registerDocumentFormattingEditProvider('ez-env-variables', {
+		provideDocumentFormattingEdits(doc) {
+			logger.log(`formatting ${doc.fileName}`)
+
+			let edits: vscode.TextEdit[] = [];
+
+			for (let i = 0; i < doc.lineCount; i++) {
+				let line = doc.lineAt(i);
+
+				if (line.isEmptyOrWhitespace && line.text.length > 0) {
+					edits.push(vscode.TextEdit.delete(line.range));
+				}
+			}
+
+			return edits;
+		}
+	});
+
+	context.subscriptions.push(logger, formatEnv);
+}
+
 export function deactivate() {}
