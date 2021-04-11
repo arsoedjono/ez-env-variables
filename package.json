@@ -10,13 +10,13 @@
     "Other"
   ],
   "activationEvents": [
-    "onLanguage:ez-env-variables"
+    "onLanguage:dotenv"
   ],
   "main": "./out/extension.js",
   "contributes": {
     "languages": [
       {
-        "id": "env",
+        "id": "dotenv",
         "extensions": [
           ".env",
           ".env.sample"
