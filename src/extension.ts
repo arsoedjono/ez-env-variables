@@ -16,6 +16,12 @@ export function activate(context: vscode.ExtensionContext) {
 					let value = text.substring(separatorIdx + 1).trim()
 
 					edits.push(vscode.TextEdit.replace(range, `${key}=${value}`))
+				} else if (text.match(/^\s*\w+\s*=\s*/m)) {
+					let separatorIdx = text.indexOf('=')
+					let key = text.substring(0, separatorIdx).trim()
+					let value = text.substring(separatorIdx + 1).trim()
+
+					edits.push(vscode.TextEdit.replace(range, `${key}=${value}`))
 				} else if (line.firstNonWhitespaceCharacterIndex > 0 || text[text.length - 1] == ' ') {
 					edits.push(vscode.TextEdit.replace(range, text.trim()))
 				}
