@@ -3,23 +3,29 @@ import * as vscode from 'vscode';
 export function activate(context: vscode.ExtensionContext) {
 	let formatEnv = vscode.languages.registerDocumentFormattingEditProvider('dotenv', {
 		provideDocumentFormattingEdits(doc) {
-			let edits: vscode.TextEdit[] = [];
+			let edits: vscode.TextEdit[] = []
 
 			for (let i = 0; i < doc.lineCount; i++) {
-				let line = doc.lineAt(i);
-				let start = line.firstNonWhitespaceCharacterIndex
+				let line = doc.lineAt(i)
+				let range = line.range
+				let text = line.text
 
-				// trim leading whitespace
-				if (start != 0) {
-					edits.push(vscode.TextEdit.delete(new vscode.Range(i, 0, i, start)));
+				if (text.match(/^\s*\w+\s*:/m)) {
+					let separatorIdx = text.indexOf(':')
+					let key = text.substring(0, separatorIdx).trim()
+					let value = text.substring(separatorIdx + 1).trim()
+
+					edits.push(vscode.TextEdit.replace(range, `${key}=${value}`))
+				} else if (line.firstNonWhitespaceCharacterIndex > 0 || text[text.length - 1] == ' ') {
+					edits.push(vscode.TextEdit.replace(range, text.trim()))
 				}
 			}
 
-			return edits;
+			return edits
 		}
 	});
 
-	context.subscriptions.push(formatEnv);
+	context.subscriptions.push(formatEnv)
 }
 
 export function deactivate() {}
