@@ -1,4 +1,4 @@
-import * as vscode from 'vscode';
+import * as vscode from 'vscode'
 
 export function activate(context: vscode.ExtensionContext) {
 	const formatEnv = vscode.languages.registerDocumentFormattingEditProvider('dotenv', {
@@ -22,7 +22,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 			return edits
 		}
-	});
+	})
 
 	context.subscriptions.push(formatEnv)
 }
