@@ -9,19 +9,23 @@ export function activate(context: vscode.ExtensionContext) {
 				let line = doc.lineAt(i)
 				let text = line.text
 
-				if (text.match(/^\w+=(?:\S|\S.*\S|)$/m)) {
+				if (text.match(/^(?:# (?:\S|\S.*\S)|\w+=(?:\S|\S.*\S|))$/m)) {
 					continue
 				}
 
 				text = text.trim()
 
-				let matcher = text.match(/^\w+\s*(:|=)\s*/m)
-				if (matcher != null) {
-					let separatorIdx = text.indexOf(matcher[1])
-					let key = text.substring(0, separatorIdx).trim()
-					let value = text.substring(separatorIdx + 1).trim()
+				if (text[0] === '#') {
+					text = `# ${text.substring(1).trim()}`.trim()
+				} else {
+					let matcher = text.match(/^\w+\s*(:|=)\s*/m)
+					if (matcher != null) {
+						let separatorIdx = text.indexOf(matcher[1])
+						let key = text.substring(0, separatorIdx).trim()
+						let value = text.substring(separatorIdx + 1).trim()
 
-					text = `${key}=${value}`
+						text = `${key}=${value}`
+					}
 				}
 				edits.push(vscode.TextEdit.replace(line.range, text))
 			}
