@@ -1,12 +1,12 @@
 import * as vscode from 'vscode';
 
 export function activate(context: vscode.ExtensionContext) {
-	let formatEnv = vscode.languages.registerDocumentFormattingEditProvider('dotenv', {
+	const formatEnv = vscode.languages.registerDocumentFormattingEditProvider('dotenv', {
 		provideDocumentFormattingEdits(doc) {
 			let edits: vscode.TextEdit[] = []
 
 			for (let i = 0; i < doc.lineCount; i++) {
-				let line = doc.lineAt(i)
+				const line = doc.lineAt(i)
 				let text = line.text
 
 				if (text.match(/^(?:# (?:\S|\S.*\S)|\w+=(?:\S|\S.*\S|))$/m)) {
@@ -14,19 +14,9 @@ export function activate(context: vscode.ExtensionContext) {
 				}
 
 				text = text.trim()
+				text = formatCommentRow(text)
+				text = formatEnvRow(text)
 
-				if (text[0] === '#') {
-					text = `# ${text.substring(1).trim()}`.trim()
-				} else {
-					let matcher = text.match(/^\w+\s*(:|=)\s*/m)
-					if (matcher != null) {
-						let separatorIdx = text.indexOf(matcher[1])
-						let key = text.substring(0, separatorIdx).trim()
-						let value = text.substring(separatorIdx + 1).trim()
-
-						text = `${key}=${value}`
-					}
-				}
 				edits.push(vscode.TextEdit.replace(line.range, text))
 			}
 
@@ -35,6 +25,27 @@ export function activate(context: vscode.ExtensionContext) {
 	});
 
 	context.subscriptions.push(formatEnv)
+}
+
+export function formatCommentRow(text: string): string {
+	if (text[0] !== '#') {
+		return text
+	}
+	return `# ${text.substring(1).trim()}`.trim()
+}
+
+export function formatEnvRow(text: string): string {
+	const matcher = text.match(/^\w+\s*(:|=)\s*/m)
+
+	if (matcher === null) {
+		return text
+	}
+
+	const separatorIdx = text.indexOf(matcher[1])
+	const key = text.substring(0, separatorIdx).trim()
+	const value = text.substring(separatorIdx + 1).trim()
+
+	return `${key}=${value}`
 }
 
 export function deactivate() {}
