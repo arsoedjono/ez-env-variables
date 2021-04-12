@@ -8,7 +8,6 @@ export function activate(context: vscode.ExtensionContext) {
 			for (let i = 0; i < doc.lineCount; i++) {
 				let line = doc.lineAt(i)
 				let text = line.text
-				console.log(text)
 
 				if (text.match(/^\w+=(?:\S|\S.*\S|)$/m)) {
 					continue
@@ -17,7 +16,6 @@ export function activate(context: vscode.ExtensionContext) {
 				text = text.trim()
 
 				let matcher = text.match(/^\w+\s*(:|=)\s*/m)
-				console.log(matcher)
 				if (matcher != null) {
 					let separatorIdx = text.indexOf(matcher[1])
 					let key = text.substring(0, separatorIdx).trim()
