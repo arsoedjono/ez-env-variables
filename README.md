@@ -1,4 +1,4 @@
-# ez-env-variables
+# EZ Env Variables
 
 Formatting for dotenv files
 
