@@ -7,24 +7,25 @@ export function activate(context: vscode.ExtensionContext) {
 
 			for (let i = 0; i < doc.lineCount; i++) {
 				let line = doc.lineAt(i)
-				let range = line.range
 				let text = line.text
+				console.log(text)
 
-				if (text.match(/^\s*\w+\s*:/m)) {
-					let separatorIdx = text.indexOf(':')
-					let key = text.substring(0, separatorIdx).trim()
-					let value = text.substring(separatorIdx + 1).trim()
-
-					edits.push(vscode.TextEdit.replace(range, `${key}=${value}`))
-				} else if (text.match(/^\s*\w+\s*=\s*/m)) {
-					let separatorIdx = text.indexOf('=')
-					let key = text.substring(0, separatorIdx).trim()
-					let value = text.substring(separatorIdx + 1).trim()
-
-					edits.push(vscode.TextEdit.replace(range, `${key}=${value}`))
-				} else if (line.firstNonWhitespaceCharacterIndex > 0 || text[text.length - 1] == ' ') {
-					edits.push(vscode.TextEdit.replace(range, text.trim()))
+				if (text.match(/^\w+=(?:\S|\S.*\S|)$/m)) {
+					continue
 				}
+
+				text = text.trim()
+
+				let matcher = text.match(/^\w+\s*(:|=)\s*/m)
+				console.log(matcher)
+				if (matcher != null) {
+					let separatorIdx = text.indexOf(matcher[1])
+					let key = text.substring(0, separatorIdx).trim()
+					let value = text.substring(separatorIdx + 1).trim()
+
+					text = `${key}=${value}`
+				}
+				edits.push(vscode.TextEdit.replace(line.range, text))
 			}
 
 			return edits
