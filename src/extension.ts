@@ -24,6 +24,30 @@ export function activate(context: vscode.ExtensionContext) {
 		}
 	})
 
+	const fold = vscode.languages.registerFoldingRangeProvider('dotenv', {
+		provideFoldingRanges(doc) {
+			const folds: vscode.FoldingRange[] = []
+			let start = -1
+
+			for (let i = 0; i < doc.lineCount; i++) {
+				const line = doc.lineAt(i)
+				const text = line.text
+
+				if (text[0] === '#') {
+					if (start >= 0) {
+						folds.push(new vscode.FoldingRange(start, i - 1, vscode.FoldingRangeKind.Region))
+					}
+					start = i
+				} else if (line.isEmptyOrWhitespace) {
+					folds.push(new vscode.FoldingRange(start, i - 1, vscode.FoldingRangeKind.Region))
+					start = -1
+				}
+			}
+
+			return folds
+		}
+	})
+
 	context.subscriptions.push(formatEnv)
 }
 
