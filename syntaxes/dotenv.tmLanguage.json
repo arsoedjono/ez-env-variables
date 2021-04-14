@@ -2,13 +2,9 @@
   "scopeName": "source.dotenv",
   "patterns": [
     {
-      "include": "#comment"
-    }
-  ],
-  "repository": {
-    "comment": {
+      "comment": "comments",
       "match": "^\\s*#.*",
       "name": "comment.line.number-sign.dotenv"
     }
-  }
+  ]
 }
