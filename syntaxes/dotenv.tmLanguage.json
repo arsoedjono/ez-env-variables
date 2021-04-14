@@ -11,7 +11,7 @@
       "match": "^\\s*(\\w+)(=).*",
       "captures": {
         "1": {
-          "name": "support.variable.dotenv"
+          "name": "variable.dotenv"
         },
         "2": {
           "name": "keyword.operator.dotenv"
