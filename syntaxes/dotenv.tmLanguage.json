@@ -5,6 +5,18 @@
       "comment": "comments",
       "match": "^\\s*#.*",
       "name": "comment.line.number-sign.dotenv"
+    },
+    {
+      "comment": "dotenv variable",
+      "match": "^\\s*(\\w+)(=).*",
+      "captures": {
+        "1": {
+          "name": "support.variable.dotenv"
+        },
+        "2": {
+          "name": "keyword.operator.dotenv"
+        }
+      }
     }
   ]
 }
