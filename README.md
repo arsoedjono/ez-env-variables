@@ -10,6 +10,10 @@
 
   Formats your dotenv variables and comments from `Format Document` command in the `Command Pallete`
 
+* Folding
+
+  Folds your variables grouped by comments
+
 * Transform YML to dotenv
 
   Copy and paste your gitlab variables and converts them into dotenv variables using `Format Document` command in the `Command Pallete`
