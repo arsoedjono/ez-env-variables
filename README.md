@@ -1,8 +1,10 @@
 # EZ Env Variables
 
-Formatting for dotenv files
-
 ## Features
+
+* Syntax Highlighting
+
+  Gives color to highlight you environment keys and variables
 
 * Formatting
 
