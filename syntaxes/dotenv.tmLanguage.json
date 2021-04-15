@@ -9,6 +9,7 @@
     {
       "comment": "dotenv variable",
       "match": "^\\s*(\\w+)(=)(.*)",
+      "name": "string.unquoted.dotenv",
       "captures": {
         "1": {
           "name": "variable.dotenv"
@@ -23,6 +24,9 @@
             },
             {
               "include": "#numeric"
+            },
+            {
+              "include": "#string"
             }
           ]
         }
@@ -37,6 +41,11 @@
     "numeric": {
       "match": "-?\\d+(?:\\.\\d*)?",
       "name": "constant.numeric.dotenv"
+    },
+    "string": {
+      "begin": "\"|'",
+      "end": "\"|'",
+      "name": "string.quoted.dotenv"
     }
   }
 }
