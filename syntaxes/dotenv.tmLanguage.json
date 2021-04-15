@@ -20,6 +20,9 @@
           "patterns": [
             {
               "include": "#boolean"
+            },
+            {
+              "include": "#numeric"
             }
           ]
         }
@@ -30,6 +33,10 @@
     "boolean": {
       "match": "true|false",
       "name": "constant.language.dotenv"
+    },
+    "numeric": {
+      "match": "-?\\d+(?:\\.\\d*)?",
+      "name": "constant.numeric.dotenv"
     }
   }
 }
