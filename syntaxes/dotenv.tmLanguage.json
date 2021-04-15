@@ -8,15 +8,28 @@
     },
     {
       "comment": "dotenv variable",
-      "match": "^\\s*(\\w+)(=).*",
+      "match": "^\\s*(\\w+)(=)(.*)",
       "captures": {
         "1": {
           "name": "variable.dotenv"
         },
         "2": {
           "name": "keyword.operator.dotenv"
+        },
+        "3": {
+          "patterns": [
+            {
+              "include": "#boolean"
+            }
+          ]
         }
       }
     }
-  ]
+  ],
+  "repository": {
+    "boolean": {
+      "match": "true|false",
+      "name": "constant.language.dotenv"
+    }
+  }
 }
