@@ -4,16 +4,22 @@
 
 * Syntax Highlighting
 
-  Gives color to highlight you environment keys and variables
+  ![syntax-highlighting](images/syntax-highlighting.png)
 
 * Formatting
 
-  Formats your dotenv variables and comments from `Format Document` command in the `Command Pallete`
+  Use `Format Document` command in the `Command Pallete`. It will also transform YML syntax to Dotenv variables.
+
+  ![formatting](images/formatting.gif)
 
 * Folding
 
   Folds your variables grouped by comments
 
-* Transform YML to dotenv
+  ![folding](images/folding.gif)
 
-  Copy and paste your gitlab variables and converts them into dotenv variables using `Format Document` command in the `Command Pallete`
+## Extension Support
+
+The extension will support files with `.env` extension.
+
+...or if you want your custom environment variables to use this extension, configure it in your [Language Identifiers settings](https://code.visualstudio.com/docs/languages/identifiers).
