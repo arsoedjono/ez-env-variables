@@ -48,7 +48,12 @@ export function activate(context: vscode.ExtensionContext) {
 		}
 	})
 
-	context.subscriptions.push(formatEnv, fold)
+	const selectEnv = vscode.commands.registerCommand('ez-env-variables.selectEnv', () => {
+		const uris = []
+		vscode.window.showInformationMessage('success')
+	})
+
+	context.subscriptions.push(formatEnv, fold, selectEnv)
 }
 
 export function formatCommentRow(text: string): string {

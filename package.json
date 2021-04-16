@@ -10,7 +10,8 @@
     "Other"
   ],
   "activationEvents": [
-    "onLanguage:dotenv"
+    "onLanguage:dotenv",
+    "onCommand:ez-env-variables.selectEnv"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -28,6 +29,12 @@
         "language": "dotenv",
         "scopeName": "source.dotenv",
         "path": "./syntaxes/dotenv.tmLanguage.json"
+      }
+    ],
+    "commands": [
+      {
+        "command": "ez-env-variables.selectEnv",
+        "title": "Select ENV"
       }
     ]
   },
