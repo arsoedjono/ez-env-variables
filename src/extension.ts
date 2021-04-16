@@ -48,7 +48,7 @@ export function activate(context: vscode.ExtensionContext) {
 		}
 	})
 
-	context.subscriptions.push(formatEnv)
+	context.subscriptions.push(formatEnv, fold)
 }
 
 export function formatCommentRow(text: string): string {
