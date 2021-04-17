@@ -48,7 +48,11 @@ export function activate(context: vscode.ExtensionContext) {
 		}
 	});
 
-	context.subscriptions.push(formatEnv, fold);
+	const findEnvValue = vscode.commands.registerCommand('ez-env-variables.findEnvValue', () => {
+		vscode.window.showInformationMessage('success');
+	});
+
+	context.subscriptions.push(formatEnv, fold, findEnvValue);
 }
 
 export function formatCommentRow(text: string): string {
