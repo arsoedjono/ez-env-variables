@@ -48,6 +48,8 @@ export function activate(context: vscode.ExtensionContext) {
     }
   });
 
+  // TODO: add to right-click menu https://code.visualstudio.com/api/references/contribution-points#contributes.menus
+  // TODO: tidy up code
   const findEnvValue = vscode.commands.registerCommand('ez-env-variables.findEnvValue', async () => {
     const envFileName = '/.env';
     const workspace = vscode.workspace.workspaceFolders;
@@ -57,7 +59,7 @@ export function activate(context: vscode.ExtensionContext) {
       return;
     }
 
-    const path = workspace[0].uri.path;
+    const path = workspace[0].uri.path; // TODO: handle multiple workspaces
     const editor = vscode.window.activeTextEditor;
 
     if (!editor) {
