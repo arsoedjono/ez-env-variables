@@ -50,13 +50,16 @@ export function activate(context: vscode.ExtensionContext) {
 
   const findEnvValue = vscode.commands.registerCommand('ez-env-variables.findEnvValue', async () => {
     const envFileName = '/.env';
-    const uri = vscode.workspace.workspaceFile;
-    if (!uri) {
+    const workspace = vscode.workspace.workspaceFolders;
+
+    if (!workspace) {
       vscode.window.showErrorMessage('Must be in a workspace!');
       return;
     }
 
+    const path = workspace[0].uri.path;
     const editor = vscode.window.activeTextEditor;
+
     if (!editor) {
       vscode.window.showErrorMessage('Must be in an open file!');
       return;
@@ -68,8 +71,15 @@ export function activate(context: vscode.ExtensionContext) {
       return;
     }
 
+    let doc;
+    try {
+      doc = await vscode.workspace.openTextDocument(path + envFileName);
+    } catch (e) {
+      vscode.window.showErrorMessage('No .env file found in the root project!');
+      return;
+    }
+
     const keyword = editor.document.getText(selection);
-    const doc = await vscode.workspace.openTextDocument(uri + envFileName);
     const matcher = doc.getText().match(new RegExp(`^${keyword}=(.*)`, 'gm'));
 
     if (!matcher) {
