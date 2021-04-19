@@ -62,7 +62,7 @@ export function activate(context: vscode.ExtensionContext) {
 			return;
 		}
 
-		const selection = editor?.selection
+		const selection = editor?.selection;
 		if (selection.isEmpty || !selection.isSingleLine) {
 			vscode.window.showErrorMessage('Select something in a single line!');
 			return;
