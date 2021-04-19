@@ -3,6 +3,7 @@
   "displayName": "EZ Env Variables",
   "description": "An easy way to manage your environment variables",
   "version": "0.1.0",
+  "publisher": "arsoedjono",
   "repository": {
     "type": "git",
     "url": "https://github.com/arsoedjono/ez-env-variables.git"
