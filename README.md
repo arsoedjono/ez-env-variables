@@ -8,7 +8,7 @@
 
 * Formatting
 
-  Use `Format Document` command in the `Command Pallete`. It will also transform YML syntax to Dotenv variables.
+  Use `Format Document` command in the `Command Palette`. It will also transform YML syntax to Dotenv variables.
 
   ![formatting](images/formatting.gif)
 
@@ -17,6 +17,12 @@
   Folds your variables grouped by comments
 
   ![folding](images/folding.gif)
+
+* Find Variable Value
+
+  Select a string and find its value in your `.env` file in the root project by using `Find ENV Value` command in the `Command Palette`
+
+  ![find-env](images/find-env.gif)
 
 ## Extension Support
 
