@@ -2,8 +2,14 @@
 
 All notable changes to the "ez-env-variables" extension will be documented in this file.
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
+## 0.2.1
 
-## [Unreleased]
+- Added Find ENV Value command to editor context menu item (right click selection)
 
-- Initial release
+## 0.2.0
+
+- Added Find ENV Value command to Command Palette
+
+## 0.1.0
+
+- Initial release: Syntax highlighting, folding, and formatting
