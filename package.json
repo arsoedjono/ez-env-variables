@@ -2,7 +2,7 @@
   "name": "ez-env-variables",
   "displayName": "EZ Env Variables",
   "description": "An easy way to manage your environment variables",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "publisher": "arsoedjono",
   "repository": {
     "type": "git",
@@ -41,7 +41,16 @@
         "command": "ez-env-variables.findEnvValue",
         "title": "Find ENV Value"
       }
-    ]
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "ez-env-variables.findEnvValue",
+          "when": "editorHasSelection",
+          "group": "ez-env-variables@1"
+        }
+      ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",

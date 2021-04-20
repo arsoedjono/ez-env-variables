@@ -24,6 +24,10 @@
 
   ![find-env](images/find-env.gif)
 
+  ...or right click on the selection and choose `Find ENV Value`
+
+  ![find-env](images/find-env.png)
+
 ## Extension Support
 
 The extension will support files with `.env` extension.
