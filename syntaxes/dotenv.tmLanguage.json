@@ -3,13 +3,20 @@
   "patterns": [
     {
       "comment": "comments",
-      "match": "^\\s*#.*",
-      "name": "comment.line.number-sign.dotenv"
+      "match": "^\\s*(#.*)$",
+      "captures": {
+        "1": {
+          "patterns": [
+            {
+              "include": "#comment"
+            }
+          ]
+        }
+      }
     },
     {
       "comment": "dotenv variable",
-      "match": "^\\s*(\\w+)(=)(.*)",
-      "name": "string.unquoted.dotenv",
+      "match": "^\\s*(\\w+)(=)(.*)$",
       "captures": {
         "1": {
           "name": "variable.dotenv"
@@ -27,6 +34,9 @@
             },
             {
               "include": "#string"
+            },
+            {
+              "include": "#value"
             }
           ]
         }
@@ -34,18 +44,66 @@
     }
   ],
   "repository": {
+    "comment": {
+      "match": "#.*",
+      "name": "comment.line.number-sign.dotenv"
+    },
     "boolean": {
-      "match": "true|false",
-      "name": "constant.language.dotenv"
+      "match": "\\b(true|false)\\b(\\s*#.*)?",
+      "captures": {
+        "1": {
+          "name": "constant.language.dotenv"
+        },
+        "2": {
+          "patterns": [
+            {
+              "include": "#comment"
+            }
+          ]
+        }
+      }
     },
     "numeric": {
-      "match": "-?\\d+(?:\\.\\d*)?",
-      "name": "constant.numeric.dotenv"
+      "match": "-?\\b(\\d+(?:\\.\\d*)?)\\b(\\s*#.*)?",
+      "captures": {
+        "1": {
+          "name": "constant.numeric.dotenv"
+        },
+        "2": {
+          "patterns": [
+            {
+              "include": "#comment"
+            }
+          ]
+        }
+      }
     },
     "string": {
       "begin": "\"|'",
-      "end": "\"|'",
+      "end": "\"|'(\\s*#.*)?",
+      "endCaptures": {
+        "1": {
+          "patterns": [
+            {
+              "include": "#comment"
+            }
+          ]
+        }
+      },
       "name": "string.quoted.dotenv"
+    },
+    "value": {
+      "match": "[^#]*(#.*)?",
+      "name": "string.unquoted.dotenv",
+      "captures": {
+        "1": {
+          "patterns": [
+            {
+              "include": "#comment"
+            }
+          ]
+        }
+      }
     }
   }
 }
