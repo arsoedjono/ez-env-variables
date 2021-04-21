@@ -8,13 +8,13 @@ export function activate(context: vscode.ExtensionContext) {
 
       for (let i = 0; i < doc.lineCount; i++) {
         const line = doc.lineAt(i);
-        let text = line.text;
+        let text = new Row(line.text);
 
-        if (text.match(/^(?:# (?:\S|\S.*\S)|\w+=(?:\S|\S.*\S|))$/m)) {
+        if (text.isFormatted()) {
           continue;
         }
 
-        edits.push(vscode.TextEdit.replace(line.range, new Row(text).format()));
+        edits.push(vscode.TextEdit.replace(line.range, text.format()));
       }
 
       return edits;

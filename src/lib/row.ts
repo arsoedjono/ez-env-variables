@@ -2,14 +2,19 @@ export class Row {
   private row: string;
 
   constructor(row: string) {
-    this.row = row.trim();
+    this.row = row;
   }
 
   public format(): string {
+    this.row = this.row.trim();
     this.formatComment()
       .formatVariable();
 
     return this.row;
+  }
+
+  public isFormatted(): boolean {
+    return this.row.match(/^(?:# (?:\S|\S.*\S)|\w+=(?:\S|\S.*\S|))$/m) !== null;
   }
 
   private formatComment(): this {
