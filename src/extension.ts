@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import { Row } from './lib/row';
 
 export function activate(context: vscode.ExtensionContext) {
   const formatEnv = vscode.languages.registerDocumentFormattingEditProvider('dotenv', {
@@ -13,11 +14,7 @@ export function activate(context: vscode.ExtensionContext) {
           continue;
         }
 
-        text = text.trim();
-        text = formatCommentRow(text);
-        text = formatEnvRow(text);
-
-        edits.push(vscode.TextEdit.replace(line.range, text));
+        edits.push(vscode.TextEdit.replace(line.range, new Row(text).format()));
       }
 
       return edits;
@@ -96,27 +93,6 @@ export function activate(context: vscode.ExtensionContext) {
   });
 
   context.subscriptions.push(formatEnv, fold, findEnvValue);
-}
-
-export function formatCommentRow(text: string): string {
-  if (text[0] !== '#') {
-    return text;
-  }
-  return `# ${text.substring(1).trim()}`.trim();
-}
-
-export function formatEnvRow(text: string): string {
-  const matcher = text.match(/^\w+\s*(:|=)\s*/m);
-
-  if (matcher === null) {
-    return text;
-  }
-
-  const separatorIdx = text.indexOf(matcher[1]);
-  const key = text.substring(0, separatorIdx).trim();
-  const value = text.substring(separatorIdx + 1).trim();
-
-  return `${key}=${value}`;
 }
 
 export function deactivate() { }
