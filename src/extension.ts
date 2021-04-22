@@ -54,7 +54,22 @@ export function activate(context: vscode.ExtensionContext) {
       return;
     }
 
-    const path = workspace[0].uri.path; // TODO: handle multiple workspaces
+    let index = 0;
+    if (workspace.length > 1) {
+      const names = workspace.map(ws => ws.name);
+      const pick = await vscode.window.showQuickPick(names);
+
+      if (pick) {
+        index = names.indexOf(pick);
+
+        if (index < 0) {
+          index = 0;
+          vscode.window.showWarningMessage(`Workspace ${pick} not found, find from ${workspace[0].name} instead!`);
+        }
+      }
+    }
+
+    const path = workspace[index].uri.path;
     const editor = vscode.window.activeTextEditor;
 
     if (!editor) {
