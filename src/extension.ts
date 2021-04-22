@@ -24,9 +24,8 @@ export function activate(context: vscode.ExtensionContext) {
   const fold = vscode.languages.registerFoldingRangeProvider('dotenv', {
     provideFoldingRanges(doc) {
       const folds: vscode.FoldingRange[] = [];
-      let start = -1;
 
-      for (let i = 0; i < doc.lineCount; i++) {
+      for (let i = 0, start = -1; i < doc.lineCount; i++) {
         const line = doc.lineAt(i);
         const text = line.text;
 
