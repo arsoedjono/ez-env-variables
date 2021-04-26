@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import { Fold } from './lib/fold';
 import { Row } from './lib/row';
 
 export function activate(context: vscode.ExtensionContext) {
@@ -23,24 +24,7 @@ export function activate(context: vscode.ExtensionContext) {
 
   const fold = vscode.languages.registerFoldingRangeProvider('dotenv', {
     provideFoldingRanges(doc) {
-      const folds: vscode.FoldingRange[] = [];
-
-      for (let i = 0, start = -1; i < doc.lineCount; i++) {
-        const line = doc.lineAt(i);
-        const text = line.text;
-
-        if (text[0] === '#') {
-          if (start >= 0) {
-            folds.push(new vscode.FoldingRange(start, i - 1, vscode.FoldingRangeKind.Region));
-          }
-          start = i;
-        } else if (line.isEmptyOrWhitespace) {
-          folds.push(new vscode.FoldingRange(start, i - 1, vscode.FoldingRangeKind.Region));
-          start = -1;
-        }
-      }
-
-      return folds;
+      return new Fold().compile(doc);
     }
   });
 
