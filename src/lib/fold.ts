@@ -1,5 +1,5 @@
 import { FoldingRange, FoldingRangeKind, TextDocument, TextLine } from 'vscode';
-import { row } from './row'
+import { row } from './row';
 
 export class Folder {
   private folds: FoldingRange[];
@@ -26,7 +26,9 @@ export class Folder {
   }
 
   private addFold(start: number, end: number) {
-    if (start < 0) return;
+    if (start < 0) {
+      return;
+    }
 
     this.folds.push(new FoldingRange(start, end, FoldingRangeKind.Region));
   }

@@ -1,5 +1,5 @@
 import { TextDocument, TextEdit } from 'vscode';
-import { row } from './row'
+import { row } from './row';
 
 export class Formatter {
   private edits: TextEdit[];
