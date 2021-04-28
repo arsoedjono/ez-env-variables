@@ -1,24 +1,11 @@
 import * as vscode from 'vscode';
 import { Fold } from './lib/fold';
-import { Row } from './lib/row';
+import { Formatter } from './lib/formatter';
 
 export function activate(context: vscode.ExtensionContext) {
   const formatEnv = vscode.languages.registerDocumentFormattingEditProvider('dotenv', {
     provideDocumentFormattingEdits(doc) {
-      let edits: vscode.TextEdit[] = [];
-
-      for (let i = 0; i < doc.lineCount; i++) {
-        const line = doc.lineAt(i);
-        let text = new Row(line.text);
-
-        if (text.isFormatted()) {
-          continue;
-        }
-
-        edits.push(vscode.TextEdit.replace(line.range, text.format()));
-      }
-
-      return edits;
+      return new Formatter().start(doc);
     }
   });
 
