@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { Fold } from './lib/fold';
+import { Folder } from './lib/fold';
 import { Formatter } from './lib/formatter';
 
 export function activate(context: vscode.ExtensionContext) {
@@ -11,7 +11,7 @@ export function activate(context: vscode.ExtensionContext) {
 
   const fold = vscode.languages.registerFoldingRangeProvider('dotenv', {
     provideFoldingRanges(doc) {
-      return new Fold().compile(doc);
+      return new Folder().start(doc);
     }
   });
 

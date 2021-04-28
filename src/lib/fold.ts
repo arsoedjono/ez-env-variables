@@ -1,13 +1,13 @@
 import { FoldingRange, FoldingRangeKind, TextDocument, TextLine } from 'vscode';
 
-export class Fold {
+export class Folder {
   private folds: FoldingRange[];
 
   constructor() {
     this.folds = [];
   }
 
-  public compile(doc: TextDocument): FoldingRange[] {
+  public start(doc: TextDocument): FoldingRange[] {
     for (let lineNumber = 0, startFoldLine = -1; lineNumber < doc.lineCount; lineNumber++) {
       const line = doc.lineAt(lineNumber);
 
