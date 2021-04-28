@@ -1,4 +1,5 @@
 import { FoldingRange, FoldingRangeKind, TextDocument, TextLine } from 'vscode';
+import { row } from './row'
 
 export class Folder {
   private folds: FoldingRange[];
@@ -13,7 +14,7 @@ export class Folder {
 
       if (this.isValidFoldBreakLine(line)) {
         this.addFold(startFoldLine, lineNumber - 1);
-        startFoldLine = this.isCommentLine(line) ? lineNumber : -1;
+        startFoldLine = row.isComment(line.text) ? lineNumber : -1;
       }
     }
 
@@ -21,11 +22,7 @@ export class Folder {
   }
 
   private isValidFoldBreakLine(line: TextLine) {
-    return this.isCommentLine(line) || line.isEmptyOrWhitespace;
-  }
-
-  private isCommentLine(line: TextLine) {
-    return line.text[0] === '#';
+    return row.isComment(line.text) || line.isEmptyOrWhitespace;
   }
 
   private addFold(start: number, end: number) {

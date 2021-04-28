@@ -1,4 +1,5 @@
 import { TextDocument, TextEdit } from 'vscode';
+import { row } from './row'
 
 export class Formatter {
   private edits: TextEdit[];
@@ -27,7 +28,7 @@ export class Formatter {
   private format(text: string): string {
     text = text.trim();
 
-    if (text[0] === '#') {
+    if (row.isComment(text)) {
       return `# ${text.substring(1).trim()}`.trim();
     }
 
