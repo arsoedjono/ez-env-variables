@@ -33,3 +33,7 @@
 The extension will support files with `.env` extension.
 
 ...or if you want your custom environment variables to use this extension, configure it in your [Language Identifiers settings](https://code.visualstudio.com/docs/languages/identifiers).
+
+## Notes
+
+If you have any problems or ideas, please open an issue! :)
