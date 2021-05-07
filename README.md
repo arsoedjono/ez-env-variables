@@ -1,5 +1,13 @@
 # EZ Env Variables
 
+## Installation
+
+This extension is not released to the marketplace yet. You can build the installer (.vsix) by running this command:
+
+```bash
+npm run release
+```
+
 ## Features
 
 * Syntax Highlighting
