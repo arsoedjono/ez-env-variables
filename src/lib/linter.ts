@@ -38,7 +38,7 @@ export class Linter {
         value.forEach((lineNumber) => {
           const index = doc.lineAt(lineNumber).text.indexOf(key);
           const range = new Range(lineNumber, index, lineNumber, key.length);
-          const diagnostic = new Diagnostic(range, 'duplicate key', DiagnosticSeverity.Warning);
+          const diagnostic = new Diagnostic(range, `Duplicate key "${key}" in line ${value.join(', ')}`, DiagnosticSeverity.Warning);
           entries.push(diagnostic);
         });
       }
