@@ -1,6 +1,7 @@
-import { commands, ExtensionContext, languages } from 'vscode';
+import { commands, ExtensionContext, languages, window } from 'vscode';
 import { Folder } from './lib/fold';
 import { Formatter } from './lib/formatter';
+import { Linter } from './lib/linter';
 import { valueFinder } from './lib/valueFinder';
 
 export function activate(context: ExtensionContext) {
@@ -18,7 +19,15 @@ export function activate(context: ExtensionContext) {
 
   const findEnvValue = commands.registerCommand('ez-env-variables.findEnvValue', valueFinder);
 
-  context.subscriptions.push(formatEnv, fold, findEnvValue);
+  const diagnostic = languages.createDiagnosticCollection('dotenv');
+  const linter = commands.registerCommand('ez-env-variables.linter', () => {
+    const textEditor = window.activeTextEditor;
+    if (textEditor) {
+      new Linter(diagnostic).execute(textEditor.document);
+    }
+  });
+
+  context.subscriptions.push(formatEnv, fold, findEnvValue, diagnostic, linter);
 }
 
 export function deactivate() { }
