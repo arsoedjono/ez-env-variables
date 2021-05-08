@@ -7,8 +7,8 @@ export class Linter {
     this.diagnostics = diagnostics;
   }
 
-  public execute(doc: TextDocument) {
-    if (doc.languageId !== 'dotenv') {
+  public execute(doc: TextDocument | undefined) {
+    if (doc === undefined || doc.languageId !== 'dotenv') {
       return;
     }
 

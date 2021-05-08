@@ -16,8 +16,8 @@
   ],
   "activationEvents": [
     "onLanguage:dotenv",
-    "onCommand:ez-env-variables.findEnvValue",
-    "onCommand:ez-env-variables.linter"
+    "onCommand:ez-env-variables.findCommand",
+    "onCommand:ez-env-variables.lintCommand"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -39,11 +39,11 @@
     ],
     "commands": [
       {
-        "command": "ez-env-variables.findEnvValue",
+        "command": "ez-env-variables.findCommand",
         "title": "Find ENV Value"
       },
       {
-        "command": "ez-env-variables.linter",
+        "command": "ez-env-variables.lintCommand",
         "title": "Run ENV Linter"
       }
     ],

@@ -1,33 +1,36 @@
-import { commands, ExtensionContext, languages, window } from 'vscode';
+import { commands, ExtensionContext, languages, window, workspace } from 'vscode';
 import { Folder } from './lib/fold';
 import { Formatter } from './lib/formatter';
 import { Linter } from './lib/linter';
 import { valueFinder } from './lib/valueFinder';
 
 export function activate(context: ExtensionContext) {
-  const formatEnv = languages.registerDocumentFormattingEditProvider('dotenv', {
+  const formatter = languages.registerDocumentFormattingEditProvider('dotenv', {
     provideDocumentFormattingEdits(doc) {
       return new Formatter().start(doc);
     }
   });
+  context.subscriptions.push(formatter);
 
-  const fold = languages.registerFoldingRangeProvider('dotenv', {
+  const folder = languages.registerFoldingRangeProvider('dotenv', {
     provideFoldingRanges(doc) {
       return new Folder().start(doc);
     }
   });
-
-  const findEnvValue = commands.registerCommand('ez-env-variables.findEnvValue', valueFinder);
+  context.subscriptions.push(folder);
 
   const diagnostic = languages.createDiagnosticCollection('dotenv');
-  const linter = commands.registerCommand('ez-env-variables.linter', () => {
-    const textEditor = window.activeTextEditor;
-    if (textEditor) {
-      new Linter(diagnostic).execute(textEditor.document);
-    }
-  });
+  context.subscriptions.push(diagnostic);
 
-  context.subscriptions.push(formatEnv, fold, findEnvValue, diagnostic, linter);
+  const linter = new Linter(diagnostic);
+  workspace.onDidOpenTextDocument((doc) => linter.execute(doc));
+  workspace.onDidSaveTextDocument((doc) => linter.execute(doc));
+  workspace.onDidCloseTextDocument((doc) => diagnostic.delete(doc.uri));
+
+  const findCommand = commands.registerCommand('ez-env-variables.findCommand', valueFinder);
+  const lintCommand = commands.registerCommand('ez-env-variables.lintCommand', () => linter.execute(window.activeTextEditor?.document));
+
+  context.subscriptions.push(findCommand, lintCommand);
 }
 
 export function deactivate() { }
