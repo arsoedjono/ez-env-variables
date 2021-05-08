@@ -8,7 +8,9 @@ export class Linter {
   }
 
   public execute(doc: TextDocument) {
-    if (doc.languageId !== 'dotenv') return;
+    if (doc.languageId !== 'dotenv') {
+      return;
+    }
 
     const variables = new Map<string, Array<number>>();
 
@@ -16,7 +18,9 @@ export class Linter {
       const line = doc.lineAt(lineNumber);
       const matcher = line.text.match(/^\s*(\w*)\s*=.*$/);
 
-      if (matcher === null) continue;
+      if (matcher === null) {
+        continue;
+      }
 
       const variable = matcher[1];
       const value = variables.get(variable);

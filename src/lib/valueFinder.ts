@@ -58,4 +58,4 @@ export const valueFinder = async () => {
   const value = line.substring(line.indexOf('=') + 1);
 
   window.showInformationMessage(value);
-}
+};
