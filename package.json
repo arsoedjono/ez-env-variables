@@ -50,7 +50,7 @@
     "menus": {
       "editor/context": [
         {
-          "command": "ez-env-variables.findEnvValue",
+          "command": "ez-env-variables.findCommand",
           "when": "editorHasSelection",
           "group": "ez-env-variables@1"
         }
