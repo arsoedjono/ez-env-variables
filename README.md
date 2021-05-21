@@ -36,6 +36,10 @@ npm run release
 
   ![find-env](images/find-env.png)
 
+* Show Duplicate Value
+
+  ![linter](images/linter.png)
+
 ## Extension Support
 
 The extension will support files with `.env` extension.
