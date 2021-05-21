@@ -2,6 +2,9 @@
 
 All notable changes to the "ez-env-variables" extension will be documented in this file.
 
+## 0.2.2
+- Added linter to show duplicate ENV values
+
 ## 0.2.1
 - Added Find ENV Value command to editor context menu item (right click selection)
 - Added selection of workspace target if there are more than one workspace opened to Find ENV Value
